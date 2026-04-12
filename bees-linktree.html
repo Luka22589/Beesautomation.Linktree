@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bees Automation</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Mono:wght@400;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold: #D4AF37;
+    --gold-dim: #A8892A;
+    --gold-glow: rgba(212,175,55,0.12);
+    --gold-border: rgba(212,175,55,0.25);
+    --bg: #080807;
+    --bg-card: #0f0e0c;
+    --bg-hover: #161410;
+    --text: #f0ead6;
+    --text-muted: #8a7f65;
+    --text-dim: #4a4535;
+  }
+
+  html, body {
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'EB Garamond', Georgia, serif;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  body {
+    padding: 60px 20px 80px;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 480px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  /* Hexagon logo mark */
+  .hex-wrap {
+    margin-bottom: 28px;
+    position: relative;
+  }
+
+  .hex-svg {
+    width: 88px;
+    height: 88px;
+    filter: drop-shadow(0 0 18px rgba(212,175,55,0.18));
+  }
+
+  /* Animated pulse ring */
+  .hex-ring {
+    position: absolute;
+    inset: -8px;
+    animation: pulse-ring 3s ease-in-out infinite;
+    opacity: 0;
+  }
+
+  @keyframes pulse-ring {
+    0%, 100% { opacity: 0; transform: scale(0.95); }
+    50% { opacity: 1; transform: scale(1.05); }
+  }
+
+  /* Name & tagline */
+  .agency-name {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 2rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    color: var(--text);
+    text-align: center;
+    line-height: 1.1;
+    margin-bottom: 6px;
+  }
+
+  .agency-name span {
+    color: var(--gold);
+  }
+
+  .tagline {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  /* Divider */
+  .divider {
+    width: 48px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+    margin: 18px 0 32px;
+  }
+
+  /* Links */
+  .links {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .link-btn {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    padding: 16px 22px;
+    background: var(--bg-card);
+    border: 1px solid var(--gold-border);
+    border-radius: 4px;
+    text-decoration: none;
+    color: var(--text);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.25s, background 0.25s;
+  }
+
+  .link-btn::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--gold);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.2s ease;
+  }
+
+  .link-btn:hover {
+    background: var(--bg-hover);
+    border-color: var(--gold);
+  }
+
+  .link-btn:hover::before {
+    transform: scaleY(1);
+  }
+
+  .link-icon {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .link-icon svg {
+    width: 20px;
+    height: 20px;
+    fill: var(--gold);
+  }
+
+  .link-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .link-label {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--text);
+    letter-spacing: 0.01em;
+  }
+
+  .link-sub {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+  }
+
+  .link-arrow {
+    flex-shrink: 0;
+    color: var(--gold-dim);
+    font-size: 1rem;
+    transition: transform 0.2s, color 0.2s;
+  }
+
+  .link-btn:hover .link-arrow {
+    transform: translateX(4px);
+    color: var(--gold);
+  }
+
+  /* Honeycomb pattern footer decoration */
+  .footer-comb {
+    margin-top: 52px;
+    opacity: 0.12;
+  }
+
+  .footer-note {
+    margin-top: 16px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.18em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  /* Fade in animation */
+  .container > * {
+    animation: fadeUp 0.5s ease both;
+  }
+  .hex-wrap       { animation-delay: 0.0s; }
+  .agency-name    { animation-delay: 0.08s; }
+  .tagline        { animation-delay: 0.13s; }
+  .divider        { animation-delay: 0.18s; }
+  .links          { animation-delay: 0.22s; }
+  .footer-comb    { animation-delay: 0.28s; }
+  .footer-note    { animation-delay: 0.32s; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 400px) {
+    .agency-name { font-size: 1.7rem; }
+    body { padding: 40px 16px 60px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Logo hexagon -->
+  <div class="hex-wrap">
+    <svg class="hex-svg" viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="hexGold" x1="0" y1="0" x2="88" y2="88" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#D4AF37"/>
+          <stop offset="100%" stop-color="#A8892A"/>
+        </linearGradient>
+      </defs>
+      <!-- Outer hex -->
+      <polygon points="44,4 80,24 80,64 44,84 8,64 8,24" fill="none" stroke="url(#hexGold)" stroke-width="1.2"/>
+      <!-- Inner hex -->
+      <polygon points="44,14 72,30 72,58 44,74 16,58 16,30" fill="none" stroke="#D4AF37" stroke-width="0.5" opacity="0.3"/>
+      <!-- Bee body -->
+      <ellipse cx="44" cy="44" rx="9" ry="13" fill="#D4AF37" opacity="0.9"/>
+      <!-- Stripes -->
+      <rect x="35.5" y="40" width="17" height="3.5" rx="1.5" fill="#080807" opacity="0.6"/>
+      <rect x="35.5" y="47" width="17" height="3.5" rx="1.5" fill="#080807" opacity="0.6"/>
+      <!-- Wings -->
+      <ellipse cx="30" cy="36" rx="8" ry="5" fill="#D4AF37" opacity="0.25" transform="rotate(-20 30 36)"/>
+      <ellipse cx="58" cy="36" rx="8" ry="5" fill="#D4AF37" opacity="0.25" transform="rotate(20 58 36)"/>
+      <ellipse cx="30" cy="42" rx="6" ry="3.5" fill="#D4AF37" opacity="0.18" transform="rotate(-15 30 42)"/>
+      <ellipse cx="58" cy="42" rx="6" ry="3.5" fill="#D4AF37" opacity="0.18" transform="rotate(15 58 42)"/>
+      <!-- Stinger -->
+      <line x1="44" y1="57" x2="44" y2="63" stroke="#D4AF37" stroke-width="1.2" stroke-linecap="round"/>
+      <!-- Antennae -->
+      <line x1="41" y1="31" x2="36" y2="24" stroke="#D4AF37" stroke-width="1" stroke-linecap="round" opacity="0.7"/>
+      <line x1="47" y1="31" x2="52" y2="24" stroke="#D4AF37" stroke-width="1" stroke-linecap="round" opacity="0.7"/>
+      <circle cx="35.5" cy="23.5" r="1.5" fill="#D4AF37" opacity="0.7"/>
+      <circle cx="52.5" cy="23.5" r="1.5" fill="#D4AF37" opacity="0.7"/>
+      <!-- Corner hex cells -->
+      <polygon points="44,4 52,8.6 52,18 44,22.6 36,18 36,8.6" fill="#D4AF37" opacity="0.06"/>
+      <polygon points="80,24 80,33.4 72,38 64,33.4 64,24 72,19.4" fill="#D4AF37" opacity="0.06"/>
+      <polygon points="80,64 72,68.6 64,64 64,54.6 72,50 80,54.6" fill="#D4AF37" opacity="0.06"/>
+    </svg>
+    <!-- Pulse ring -->
+    <svg class="hex-ring" viewBox="0 0 104 104" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="52,4 96,28 96,76 52,100 8,76 8,28" fill="none" stroke="#D4AF37" stroke-width="0.8" opacity="0.4"/>
+    </svg>
+  </div>
+
+  <h1 class="agency-name">Bees <span>Automation</span></h1>
+  <p class="tagline">Automation that runs silently &amp; precisely</p>
+  <div class="divider"></div>
+
+  <!-- Links -->
+  <div class="links">
+
+    <!-- Website -->
+    <a href="https://luka22589.github.io/Beesautomation/" class="link-btn" target="_blank">
+      <div class="link-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+        </svg>
+      </div>
+      <div class="link-text">
+        <span class="link-label">Website</span>
+      </div>
+      <span class="link-arrow">→</span>
+    </a>
+
+    <!-- Instagram -->
+    <a href="https://instagram.com/bees.automation" class="link-btn" target="_blank">
+      <div class="link-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+        </svg>
+      </div>
+      <div class="link-text">
+        <span class="link-label">Instagram</span>
+      </div>
+      <span class="link-arrow">→</span>
+    </a>
+
+    <!-- Email -->
+    <a href="/cdn-cgi/l/email-protection#771b021c1615181305180d1e144547474f37101a161e1b5914181a" class="link-btn">
+      <div class="link-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+        </svg>
+      </div>
+      <div class="link-text">
+        <span class="link-label">Contact Us</span>
+      </div>
+      <span class="link-arrow">→</span>
+    </a>
+
+  </div>
+
+  <!-- Footer honeycomb decoration -->
+  <svg class="footer-comb" width="120" height="36" viewBox="0 0 120 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <polygon points="10,1 19,6.2 19,16.8 10,22 1,16.8 1,6.2" fill="none" stroke="#D4AF37" stroke-width="1"/>
+    <polygon points="28,1 37,6.2 37,16.8 28,22 19,16.8 19,6.2" fill="none" stroke="#D4AF37" stroke-width="1"/>
+    <polygon points="46,1 55,6.2 55,16.8 46,22 37,16.8 37,6.2" fill="none" stroke="#D4AF37" stroke-width="1"/>
+    <polygon points="64,1 73,6.2 73,16.8 64,22 55,16.8 55,6.2" fill="none" stroke="#D4AF37" stroke-width="1"/>
+    <polygon points="82,1 91,6.2 91,16.8 82,22 73,16.8 73,6.2" fill="none" stroke="#D4AF37" stroke-width="1"/>
+    <polygon points="100,1 109,6.2 109,16.8 100,22 91,16.8 91,6.2" fill="none" stroke="#D4AF37" stroke-width="1"/>
+    <polygon points="118,1 127,6.2 127,16.8 118,22 109,16.8 109,6.2" fill="none" stroke="#D4AF37" stroke-width="1"/>
+    <polygon points="19,14 28,19.2 28,29.8 19,35 10,29.8 10,19.2" fill="none" stroke="#D4AF37" stroke-width="1" opacity="0.5"/>
+    <polygon points="37,14 46,19.2 46,29.8 37,35 28,29.8 28,19.2" fill="none" stroke="#D4AF37" stroke-width="1" opacity="0.5"/>
+    <polygon points="55,14 64,19.2 64,29.8 55,35 46,29.8 46,19.2" fill="none" stroke="#D4AF37" stroke-width="1" opacity="0.5"/>
+    <polygon points="73,14 82,19.2 82,29.8 73,35 64,29.8 64,19.2" fill="none" stroke="#D4AF37" stroke-width="1" opacity="0.5"/>
+    <polygon points="91,14 100,19.2 100,29.8 91,35 82,29.8 82,19.2" fill="none" 
