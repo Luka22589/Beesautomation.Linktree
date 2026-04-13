@@ -154,6 +154,10 @@ body {
 .links   { animation-delay: 0.25s; }
 .foot    { animation-delay: 0.35s; }
 
+@keyframes ring {
+  0%, 100% { transform: scale(0.95); }
+  50%       { transform: scale(1.06); }
+}
 @keyframes up {
   to { opacity: 1; transform: translateY(0); }
 }
@@ -168,7 +172,7 @@ body {
 <div class="page">
 
   <!-- LOGO -->
-  <svg class="logo" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg class="logo" viewBox="-8 -8 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
     <!-- outer hex -->
     <polygon points="40,3 74,22 74,58 40,77 6,58 6,22" stroke="#D4AF37" stroke-width="1.2" fill="none"/>
     <!-- inner hex -->
@@ -190,10 +194,9 @@ body {
     <line x1="43" y1="28" x2="48" y2="21" stroke="#D4AF37" stroke-width="0.9" stroke-linecap="round" opacity="0.7"/>
     <circle cx="31.5" cy="20.5" r="1.5" fill="#D4AF37" opacity="0.7"/>
     <circle cx="48.5" cy="20.5" r="1.5" fill="#D4AF37" opacity="0.7"/>
-    <!-- pulse ring (animated via CSS on the polygon won't work, use svg animate) -->
-    <polygon points="40,3 74,22 74,58 40,77 6,58 6,22" stroke="#D4AF37" stroke-width="0.7" fill="none" opacity="0">
-      <animate attributeName="opacity" values="0;0.5;0" dur="3s" repeatCount="indefinite"/>
-      <animateTransform attributeName="transform" type="scale" values="1;1.06;1" dur="3s" repeatCount="indefinite" additive="sum" transformOrigin="40 40"/>
+    <!-- pulse ring -->
+    <polygon points="40,-4 81,19 81,61 40,84 -1,61 -1,19" stroke="#D4AF37" stroke-width="1.5" fill="none" style="transform-origin:40px 40px;animation:ring 3s ease-in-out infinite;">
+      <animate attributeName="opacity" values="0;0.8;0" dur="3s" repeatCount="indefinite"/>
     </polygon>
   </svg>
 
