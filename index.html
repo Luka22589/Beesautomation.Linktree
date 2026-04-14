@@ -155,8 +155,8 @@ body {
 .foot    { animation-delay: 0.35s; }
 
 @keyframes ring {
-  0%, 100% { transform: scale(0.95); }
-  50%       { transform: scale(1.06); }
+  0%, 100% { transform: scale(0.92); }
+  50%       { transform: scale(1.08); }
 }
 @keyframes up {
   to { opacity: 1; transform: translateY(0); }
@@ -195,8 +195,8 @@ body {
     <circle cx="31.5" cy="20.5" r="1.5" fill="#D4AF37" opacity="0.7"/>
     <circle cx="48.5" cy="20.5" r="1.5" fill="#D4AF37" opacity="0.7"/>
     <!-- pulse ring -->
-    <polygon points="40,-4 81,19 81,61 40,84 -1,61 -1,19" stroke="#D4AF37" stroke-width="1.5" fill="none" style="transform-origin:40px 40px;animation:ring 3s ease-in-out infinite;">
-      <animate attributeName="opacity" values="0;0.8;0" dur="3s" repeatCount="indefinite"/>
+    <polygon points="40,-4 81,19 81,61 40,84 -1,61 -1,19" stroke="#D4AF37" stroke-width="1.5" fill="none" style="transform-origin:40px 40px;animation:ring 4s cubic-bezier(0.4,0,0.6,1) infinite;">
+      <animate attributeName="opacity" values="0;0.8;0" dur="4s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.6 1;0.4 0 0.6 1" keyTimes="0;0.5;1"/>
     </polygon>
   </svg>
 
